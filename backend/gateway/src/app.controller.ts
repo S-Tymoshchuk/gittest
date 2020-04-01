@@ -14,7 +14,7 @@ export class AppController {
 
   @MessagePattern('login')
   async login(user: ILoginUserDto): Promise<ILoginUserDto> {
-    return await this.appService.login(user);
+    return this.appService.login(user);
   }
 
   @MessagePattern('forgotPassword')

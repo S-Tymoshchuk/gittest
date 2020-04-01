@@ -20,8 +20,8 @@ export class UserService {
     });
   }
 
-  public login(loginUserDto:ILoginUserDto) {
-    return this.client.send('login', loginUserDto);
+  public login(loginUserDto: ILoginUserDto) {
+    return this.client.send('login', loginUserDto).toPromise();
   }
 
   public register(createUserDto: CreateUserDto) {

@@ -21,7 +21,7 @@ export class UsersService {
     return await createdUser.save();
   }
 
-  async forgotPassword(payload: string)/*: Promise<avoid>*/ {
+  async forgotPassword(payload: string) /*: Promise<avoid>*/ {
     const userForgot = await this.findByEmail(payload);
     const { email, firstName } = userForgot;
     const generatePassword = await passportGenerator(12, false);
@@ -39,6 +39,9 @@ export class UsersService {
 
     const user = await this.findByEmail(payload);
     if (!user) {
+      // FIXME: Because of this exception your app and gateway is falling down and user receives 500.
+      //        This is incorrect behaviour. You should handle this kind of error in the app and the gateway.
+      //        And return to user 401 instead
       throw new UnauthorizedException();
     }
     if (await bcrypt.compare(password, user.password)) {

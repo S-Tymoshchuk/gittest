@@ -6,35 +6,33 @@ import { JwtGuard } from './jwt.guard';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {
-  }
+  constructor(private readonly userService: UserService) {}
 
-    @Post('register')
+  @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
     return this.userService.register(createUserDto);
   }
 
-    //@UseGuards(AuthGuard('local'))
-    @Post('login')
-    async login(@Body() loginUser) {
-      return this.userService.login(loginUser);
-    }
+  @UseGuards(AuthGuard('local'))
+  @Post('login')
+  async login(@Body() loginUser) {
+    // return this.userService.login(loginUser);
+  }
 
-    @UseGuards(JwtGuard)
-    @Get('test')
-    test() {
-      return 'hello world';
-    }
+  @UseGuards(JwtGuard)
+  @Get('test')
+  test() {
+    return 'hello world';
+  }
 
-    @UseGuards(AuthGuard('jwt'))
-    @Get('test2')
-    test2() {
-      return 'hello world';
-    }
-
+  @UseGuards(AuthGuard('jwt'))
+  @Get('test2')
+  test2() {
+    return 'hello world';
+  }
 
   @Post('forgot')
-    async forgotPassword(@Body() email: string) {
-      return this.userService.forgotPassword(email);
-    }
+  async forgotPassword(@Body() email: string) {
+    return this.userService.forgotPassword(email);
+  }
 }
